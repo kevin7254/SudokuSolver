@@ -5,5 +5,8 @@ public class SudokuApplication {
         System.out.println("x");
         String a = "ww";
         System.out.println(a);
+        //Created new branch
+        int newBranch = 42;
+        System.out.println(newBranch);
     }
 }
