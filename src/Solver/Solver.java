@@ -9,11 +9,13 @@ public class Solver implements SudokuSolver{
     public Solver(){
         field = new int[9][9];
        
+
     }
     /**
      * Check if it is legal to place value at row, col.
      * @return true if value can be placed at row, col, false otherwise
      */
+
     public boolean checkIfLegal(int row, int col, int value){
         //kollar om value inte krockar med kolumnen
        for (int i =0; i<9; i++) {
@@ -40,11 +42,13 @@ public class Solver implements SudokuSolver{
     }
     return true;
 }
+
         
     /**
      * Check if the position at row, col has a start value
      * @return true if the position has no start value, false otherwise
      */
+
     public boolean checkIfEmpty(int row, int col){
         return field[row][col] == 0;
     }
@@ -52,31 +56,38 @@ public class Solver implements SudokuSolver{
     /**
      * Initializes the board with values in the matrix start.
      */
+
     public void init(int[][] start){
     
     }
+
 
     /**
      * Returns the solution.
      * @return int matrix with a valid solution
      */
+
     public int[][] getBoard(){
         return null;
     }
+
 
     /**
      * Method to solve the sudoku.
      * @return true if solution was found, false otherwise
      */
+
     public boolean solve(int row, int col){
         
-    return false;
+      return false;
 
     } //solve(0, 0)
+
 
     /**
      * Adds value value at position row, col.
      */
+
     public void add(int row, int col, int value){
         field[row][col] = value;
     }
@@ -84,6 +95,7 @@ public class Solver implements SudokuSolver{
     /**
      * Clears the sudoku.
      */
+
     public void clear(){
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
@@ -95,7 +107,10 @@ public class Solver implements SudokuSolver{
     /**
      * Removes the value at row, col.
      */
+
     public void remove(int row, int col){
+
+
         field[row][col] = 0;
     }
 }
