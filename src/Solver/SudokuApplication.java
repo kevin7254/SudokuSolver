@@ -5,5 +5,6 @@ public class SudokuApplication {
         System.out.println("x");
         String a = "ww";
         System.out.println(a);
+        System.out.println("sus");
     }
 }
