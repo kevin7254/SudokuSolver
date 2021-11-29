@@ -58,7 +58,7 @@ public class Solver implements SudokuSolver{
      */
 
     public void init(int[][] start){
-    
+        start = field;
     }
 
 
@@ -78,8 +78,32 @@ public class Solver implements SudokuSolver{
      */
 
     public boolean solve(int row, int col){
-        
-      return false;
+        if (field[row][col] == 0) {// om platsen är nollställd
+            for (int i = 1; i <= 9; i++) {
+             if ( checkIfLegal(row, col, i)) {// om i går att sätta in i field[row][col]
+                 add(row, col, i);// lägger till i i field[row][col]
+                 if (row == 8 && col == 8)break;// VI ÄR KLARA
+                 else if (col == 8) return solve(row+1, 0);// om vi är på sista raden, är nästa row+1 och col =0
+                 else return solve(row, col+1); //annars skicka med nästa till höger (row+1)
+                 
+             }  
+            }
+            return false;
+        }else if(!(field[row][col] ==0)){
+        if (checkIfLegal(row, col, field[row][col])) {
+            if (row == 8 && col == 8);//VI ÄR KLARA
+              else if (col == 8) return solve(row+1, col);
+              else{
+                  return solve(row, col+1);
+              }
+         } 
+         return false;
+       }
+
+
+
+
+      return true;
 
     } //solve(0, 0)
 
