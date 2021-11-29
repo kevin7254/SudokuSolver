@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc0b34b1-a257-4d9a-b705-8490725d5146" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -14,13 +15,14 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="TestJUnit5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,15 +42,32 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="GUI" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="SudokuApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -82,7 +101,7 @@
       <workItem from="1637678948362" duration="514000" />
       <workItem from="1637751572599" duration="66000" />
       <workItem from="1637849095545" duration="5039000" />
-      <workItem from="1638183138389" duration="4025000" />
+      <workItem from="1638183138389" duration="5024000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1637580444449</created>
@@ -105,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638189496127</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="La till JUnit5 + en testklass">
+      <created>1638190220114</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638190220114</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +153,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="GUI första utkast klart" />
     <MESSAGE value="FileReader klass klar, ska nu fungera att läsa in sudokus från en txt-file" />
-    <option name="LAST_COMMIT_MESSAGE" value="FileReader klass klar, ska nu fungera att läsa in sudokus från en txt-file" />
+    <MESSAGE value="La till JUnit5 + en testklass" />
+    <option name="LAST_COMMIT_MESSAGE" value="La till JUnit5 + en testklass" />
   </component>
 </project>
