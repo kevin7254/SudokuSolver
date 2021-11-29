@@ -1,7 +1,10 @@
 package GUI;
 
+import Solver.Solver;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class SudokuViewer {
@@ -26,6 +29,19 @@ public class SudokuViewer {
                 c++;
             }
         }
+        Solver s = new Solver();
+        int[][] array = new int[9][9];
+        int count = 0;
+        for (int i = 0; i < 9;i++) {
+            for (int j = 0; j<9;j++) {
+                array[i][j] = Integer.parseInt(list.get(count++));
+
+            }
+        }
+        s.init(array);
+        System.out.println(Arrays.deepToString(s.getBoard()));
+        s.solve(0,2);
+        System.out.println(Arrays.deepToString(s.getBoard()));
         SwingUtilities.invokeLater(this::createWindow);
     }
 
