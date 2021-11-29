@@ -11,7 +11,8 @@ public class SudokuApplication {
         int value = 8;
         boolean s = solver.checkIfLegal(row, col, value);
         System.out.println(s);
-      
-        new SudokuViewer();
+        System.out.println(FileReader.getList());
+
+        new SudokuViewer(FileReader.getList());
     }
 }
