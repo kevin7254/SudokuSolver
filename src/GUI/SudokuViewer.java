@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class SudokuViewer {
 
@@ -10,13 +11,19 @@ public class SudokuViewer {
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
     private final Font font1 = new Font("SansSerif", Font.BOLD, 20);
+    private List<String> list;
 
-    public SudokuViewer () {
+    public SudokuViewer(List<String> list) {
+        this.list = list;
+        int c = 0;
         for (int i = 0; i < 9;i++) {
             for (int j = 0; j<9;j++) {
                 fields[i][j] = new JTextField();
                 fields[i][j].setHorizontalAlignment(JTextField.CENTER);
                 fields[i][j].setFont(font1);
+                if (!list.get(c).equals("0"))
+                    fields[i][j].setText(list.get(c));
+                c++;
             }
         }
         SwingUtilities.invokeLater(this::createWindow);
