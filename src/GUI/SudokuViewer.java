@@ -35,13 +35,18 @@ public class SudokuViewer {
         for (int i = 0; i < 9;i++) {
             for (int j = 0; j<9;j++) {
                 array[i][j] = Integer.parseInt(list.get(count++));
-
             }
         }
         s.init(array);
         System.out.println(Arrays.deepToString(s.getBoard()));
-        s.solve(0,2);
+        s.solve(0,0);
         System.out.println(Arrays.deepToString(s.getBoard()));
+        int[][] temp = s.getBoard();
+        for (int i = 0; i < 9;i++) {
+            for (int j = 0; j<9;j++) {
+                fields[i][j].setText(Integer.toString(temp[i][j]));
+            }
+        }
         SwingUtilities.invokeLater(this::createWindow);
     }
 

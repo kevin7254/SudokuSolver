@@ -80,52 +80,23 @@ public class Solver implements SudokuSolver {
      * @return true if solution was found, false otherwise
      */
 
-    public boolean solve(int row, int col) {
-        if (field[row][col] == 0) {// om platsen är nollställd
-            for (int i = 1; i <= 9; i++) {
-                if (checkIfLegal(row, col, i)) {// om i går att sätta in i field[row][col]
-                    add(row, col, i);// lägger till i i field[row][col]
-                    if (row == 8 && col == 8) break;// VI ÄR KLARA
-                    else if (col == 8) return solve(row + 1, 0);// om vi är på sista raden, är nästa row+1 och col =0
-                    else return solve(row, col + 1); //annars skicka med nästa till höger (row+1)
-
+    public boolean solve(int blabla, int bluhuh) {
+        for (int row = 0; row <= 8; row++) {
+            for (int col = 0; col <= 8; col++) {
+                if (field[row][col] == 0) {
+                    for (int i = 1; i <= 9; i++) { //går 1-9
+                        if (checkIfLegal(row, col, i)) {
+                            add(row, col, i); //om de lagligt adda till board
+                            if (solve(row, col)) return true; // om de går o solva returna true
+                            else remove(row, col); //annars ta bort siffran från boardet o kolla nästa
+                        }
+                    }
+                    return false;
                 }
             }
-            return backtracking(row,col);
-        } else if (!(field[row][col] == 0)) {
-            if (checkIfLegal(row, col, field[row][col])) {
-                if (col == 8) return solve(row + 1, 0);
-                //if (row == 8 && col == 8);
-                return solve(row, col + 1);
-            }
-            return backtracking(row,col);
         }
         return true;
-
     }
-
-
-    private boolean backtracking(int row, int col) {
-        remove(row,col);
-        if (row == 0 && col == 0) return false;
-
-        if (col == 0) {
-            if (field[row-1][8] == 9) {
-                return backtracking(row-1, 8);
-            }else{
-                field[row-1][8]++;
-                return solve(row-1,8);
-            }
-        }else{
-            if (field[row][col-1] == 9) {
-                return backtracking(row, col-1);
-            }else{
-                field[row][col-1]++;
-                return solve(row, col-1);
-            }
-        }
-    }
-
 
     /**
      * Adds value value at position row, col.
