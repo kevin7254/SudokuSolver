@@ -80,9 +80,9 @@ public class Solver implements SudokuSolver {
      * @return true if solution was found, false otherwise
      */
 
-    public boolean solve(int blabla, int bluhuh) {
-        for (int row = 0; row <= 8; row++) {
-            for (int col = 0; col <= 8; col++) {
+    public boolean solve(int row, int col) {
+        for (row = 0; row <= 8; row++) {
+            for (col = 0; col <= 8; col++) {
                 if (field[row][col] == 0) {
                     for (int i = 1; i <= 9; i++) { //går 1-9
                         if (checkIfLegal(row, col, i)) {
