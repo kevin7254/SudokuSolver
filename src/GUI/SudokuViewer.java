@@ -40,7 +40,7 @@ public class SudokuViewer {
         }
         s.init(array);
         System.out.println(Arrays.deepToString(s.getBoard()));
-        s.solve(0,2);
+        s.solve(6,3);
         System.out.println(Arrays.deepToString(s.getBoard()));
         SwingUtilities.invokeLater(this::createWindow);
     }
