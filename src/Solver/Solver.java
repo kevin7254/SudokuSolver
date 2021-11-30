@@ -37,7 +37,7 @@ public class Solver implements SudokuSolver {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 if ((field[i + sRow][j + sCol] == value) && (row != (i + sRow)) && (col != (j + sCol))) {
-                    System.out.println(field[i + sRow][j + sCol] == value);
+                    //System.out.println(field[i + sRow][j + sCol] == value);
                     return false;
                 }
         return true;
@@ -91,20 +91,40 @@ public class Solver implements SudokuSolver {
 
                 }
             }
-            return false;
+            return backtracking(row,col);
         } else if (!(field[row][col] == 0)) {
             if (checkIfLegal(row, col, field[row][col])) {
                 if (col == 8) return solve(row + 1, 0);
                 //if (row == 8 && col == 8);
                 return solve(row, col + 1);
             }
-            return false;
+            return backtracking(row,col);
         }
-
-
         return true;
 
-    } //solve(0, 0)
+    }
+
+
+    private boolean backtracking(int row, int col) {
+        remove(row,col);
+        if (row == 0 && col == 0) return false;
+
+        if (col == 0) {
+            if (field[row-1][8] == 9) {
+                return backtracking(row-1, 8);
+            }else{
+                field[row-1][8]++;
+                return solve(row-1,8);
+            }
+        }else{
+            if (field[row][col-1] == 9) {
+                return backtracking(row, col-1);
+            }else{
+                field[row][col-1]++;
+                return solve(row, col-1);
+            }
+        }
+    }
 
 
     /**
@@ -132,8 +152,6 @@ public class Solver implements SudokuSolver {
      */
 
     public void remove(int row, int col) {
-
-
         field[row][col] = 0;
     }
 }
