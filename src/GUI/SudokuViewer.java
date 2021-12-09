@@ -82,8 +82,7 @@ public class SudokuViewer {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     fields[i][j].setText("");
                     arr[i][j] = Integer.parseInt(Objects.requireNonNull(temp).get(c));
-                    if (!temp.get(c).equals("0"))
-                        fields[i][j].setText(temp.get(c));
+                    if (!temp.get(c).equals("0")) fields[i][j].setText(temp.get(c));
                     c++;
                 }
             }
@@ -91,20 +90,43 @@ public class SudokuViewer {
         });
 
         solveBtn.addActionListener(event -> {
+            Solver temp = new Solver();
+            boolean finished = true;
+            int[][] tempBoard = new int[GRID_SIZE][GRID_SIZE];
+            for (int i = 0; i < GRID_SIZE; i++) {
+                for (int j = 0; j < GRID_SIZE; j++) {
+                    if (finished) {
+                    if ((fields[i][j]).getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Please fill in the whole sodoku");
+                        finished = false;
+                } else {
+                    try {
+                        tempBoard[i][j] = Integer.parseInt(Objects.requireNonNull(fields[i][j]).getText());
+                    } catch (NumberFormatException e) {
+                        finished = false;
+                        JOptionPane.showMessageDialog(null, "Please enter a valid number");
+                    }
+                        
+                        }
+            }
+        }
+        }
+        if (finished) {
+            temp.init(tempBoard);
+            if (temp.solve(0, 0) == false) {
+                JOptionPane.showMessageDialog(null, "Wrong Solution");
+        }else  JOptionPane.showMessageDialog(null, "Right solution!!!");
+       
+    } 
+           
+        });
+
+        giveUpBtn.addActionListener(event -> {
             solver.solve(0, 0);
             int[][] arr = solver.getBoard();
             for (int i = 0; i < GRID_SIZE; i++) {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     fields[i][j].setText(String.valueOf(arr[i][j]));
-                }
-            }
-        });
-
-        giveUpBtn.addActionListener(event -> {
-            solver.clear();
-            for (int i = 0; i < GRID_SIZE; i++) {
-                for (int j = 0; j < GRID_SIZE; j++) {
-                    fields[i][j].setText("");
                 }
             }
         });

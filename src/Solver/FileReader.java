@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class FileReader {
     private static int count = 0;
     private static final String[] filenames = {"src/recources/sudoku0.txt","src/recources/sudoku1.txt",
-            "src/recources/sudoku2.txt"};
+            "src/recources/sudoku2.txt", "src/recources/sudoku3.txt"};
 
     public static List<String> getList() {
         try {

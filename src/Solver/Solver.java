@@ -81,21 +81,32 @@ public class Solver implements SudokuSolver {
      */
 
     public boolean solve(int row, int col) {
-        for (row = 0; row <= 8; row++) {
-            for (col = 0; col <= 8; col++) {
-                if (field[row][col] == 0) {
-                    for (int i = 1; i <= 9; i++) { //går 1-9
-                        if (checkIfLegal(row, col, i)) {
-                            add(row, col, i); //om de lagligt adda till board
-                            if (solve(row, col)) return true; // om de går o solva returna true
-                            else remove(row, col); //annars ta bort siffran från boardet o kolla nästa
+        if (checkIfEmpty(row, col)) {// om platsen är nollställd
+            for (int i = 1; i <= 9; i++) {
+                if (checkIfLegal(row, col, i)) {// om i går att sätta in i field[row][col]
+                 if(col == 8 && row == 8){
+                    add(row, col, i);
+                    return true;
+                } else if(col != 8){
+                        add(row, col, i);
+                        if (solve(row, col+1)) return true;
+                        }else if (col == 8) {
+                            add(row, col, i);
+                            if (solve(row +1, 0)) return true;
                         }
-                    }
+                    }}
+                    remove(row, col);
                     return false;
-                }
-            }
+
+    }if (!(checkIfEmpty(row, col))) {
+        if (checkIfLegal(row, col, field[row][col])) {
+            if (col == 8 && row == 8) return true;
+            if (col == 8 ) if (solve(row+1, 0)) return true; 
+            if (col != 8) if (solve(row, col+1)) return true;
         }
-        return true;
+        return false;
+    }
+return false;
     }
 
     /**
