@@ -6,7 +6,7 @@ public class Solver implements SudokuSolver {
     /**
      * Creates a Solver
      */
-    public Solver() { //TODO backtracking
+    public Solver() { 
         field = new int[9][9];
     }
 
@@ -17,27 +17,22 @@ public class Solver implements SudokuSolver {
      */
 
     public boolean checkIfLegal(int row, int col, int value) {
-        //kollar om value inte finns på samma rad
         for (int i = 0; i < 9; i++) {
             if (value == field[row][i] && (i != col)) {
                 return false;
             }
         }
-        //kollar om value inte finns på samma kolumn
         for (int i = 0; i < 9; i++) {
             if (value == field[i][col] && (i != row)) {
                 return false;
             }
         }
-
-        //Kollar om value inte redan finns i dens 3x3
         int sRow = row - row % 3,
                 sCol = col - col % 3;
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 if ((field[i + sRow][j + sCol] == value) && (row != (i + sRow)) && (col != (j + sCol))) {
-                    //System.out.println(field[i + sRow][j + sCol] == value);
                     return false;
                 }
         return true;
