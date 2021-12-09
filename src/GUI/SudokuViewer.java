@@ -23,6 +23,9 @@ public class SudokuViewer {
         SwingUtilities.invokeLater(this::createWindow);
     }
 
+    /**
+     * Creates a new JFrame window
+     */
     private void createWindow() {
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +48,11 @@ public class SudokuViewer {
         frame.setVisible(true);
     }
 
+    /**
+     * Initialize the JTextFields on the board
+     * 
+     * @return the board
+     */
     private JTextField[][] guiBoard() {
         JTextField[][] fields = new JTextField[GRID_SIZE][GRID_SIZE];
         Font font1 = new Font("SansSerif", Font.BOLD, 20);
@@ -68,6 +76,10 @@ public class SudokuViewer {
         return fields;
     }
 
+    /**
+     * Initialize JPanel for the buttons.
+     * @return JPanel with working JButtons
+     */
     private JPanel buttonLogic() {
         JPanel buttonPane = new JPanel();
         JButton genBtn = new JButton("Generate Sudoku");
