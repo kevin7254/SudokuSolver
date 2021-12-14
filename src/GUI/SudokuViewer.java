@@ -4,9 +4,11 @@ import Solver.FileReader;
 import Solver.Solver;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
+
 
 public class SudokuViewer {
 
@@ -22,6 +24,26 @@ public class SudokuViewer {
         this.fields = guiBoard();
         SwingUtilities.invokeLater(this::createWindow);
     }
+
+    /**
+     * Creates a format for the available inputs on Sudoku board
+     *
+     * @param s inserted string for formatting
+     * @return MaskFormatter to be used for formatting with JFormattedTextField
+     */
+    private MaskFormatter format(String s) {
+        MaskFormatter f = null;
+        try {
+            f = new MaskFormatter(s);
+        } catch (java.text.ParseException e) {
+            System.err.println("bad formatter: " + e.getMessage());
+        }
+        if (f != null) {
+            f.setInvalidCharacters("0");
+        }
+        return f;
+    }
+
 
     /**
      * Creates a new JFrame window
@@ -50,7 +72,7 @@ public class SudokuViewer {
 
     /**
      * Initialize the JTextFields on the board
-     * 
+     *
      * @return the board
      */
     private JTextField[][] guiBoard() {
@@ -60,7 +82,7 @@ public class SudokuViewer {
 
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
-                fields[i][j] = new JTextField();
+                fields[i][j] = new JFormattedTextField(format("#"));
                 fields[i][j].setHorizontalAlignment(JTextField.CENTER);
                 fields[i][j].setFont(font1);
             }
@@ -78,6 +100,7 @@ public class SudokuViewer {
 
     /**
      * Initialize JPanel for the buttons.
+     *
      * @return JPanel with working JButtons
      */
     private JPanel buttonLogic() {
@@ -94,7 +117,12 @@ public class SudokuViewer {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     fields[i][j].setText("");
                     arr[i][j] = Integer.parseInt(Objects.requireNonNull(temp).get(c));
-                    if (!temp.get(c).equals("0")) fields[i][j].setText(temp.get(c));
+                    if (!temp.get(c).equals("0")) {
+                        fields[i][j].setText(temp.get(c));
+                        fields[i][j].setEditable(false);
+                    } else {
+                        fields[i][j].setEditable(true);
+                    }
                     c++;
                 }
             }
@@ -108,29 +136,29 @@ public class SudokuViewer {
             for (int i = 0; i < GRID_SIZE; i++) {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     if (finished) {
-                    if ((fields[i][j]).getText().equals("")) {
-                        JOptionPane.showMessageDialog(null, "Please fill in the whole sodoku");
-                        finished = false;
-                } else {
-                    try {
-                        tempBoard[i][j] = Integer.parseInt(Objects.requireNonNull(fields[i][j]).getText());
-                    } catch (NumberFormatException e) {
-                        finished = false;
-                        JOptionPane.showMessageDialog(null, "Please enter a valid number");
-                    }
-                        
+                        if ((fields[i][j]).getText().equals("")) {
+                            JOptionPane.showMessageDialog(null, "Please fill in the whole sodoku");
+                            finished = false;
+                        } else {
+                            try {
+                                tempBoard[i][j] = Integer.parseInt(Objects.requireNonNull(fields[i][j]).getText());
+                            } catch (NumberFormatException e) {
+                                finished = false;
+                                JOptionPane.showMessageDialog(null, "Please enter a valid number");
+                            }
+
                         }
+                    }
+                }
             }
-        }
-        }
-        if (finished) {
-            temp.init(tempBoard);
-            if (temp.solve(0, 0) == false) {
-                JOptionPane.showMessageDialog(null, "Wrong Solution");
-        }else  JOptionPane.showMessageDialog(null, "Right solution!!!");
-       
-    } 
-           
+            if (finished) {
+                temp.init(tempBoard);
+                if (!temp.solve(0, 0)) {
+                    JOptionPane.showMessageDialog(null, "Wrong Solution");
+                } else JOptionPane.showMessageDialog(null, "Right solution!!!");
+
+            }
+
         });
 
         giveUpBtn.addActionListener(event -> {
