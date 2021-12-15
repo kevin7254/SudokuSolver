@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import Solver.Solver;
 
+import java.util.Arrays;
+
 public class SudokuTest {
     private Solver solve;
 
@@ -163,6 +165,27 @@ public class SudokuTest {
         solve.clear();
         solve.add(0, 0, 10);
         assertTrue(solve.solve(0, 0), "Wrong resutl from solve");
+    }
+
+    /**
+     * Tests if init correctly sets the values for the Sudoku field
+     */
+    @Test
+    void initTest() {
+        int[][] testBoard =
+                {
+                        {0, 0, 0, 0, 0, 0, 0, 0, 2},
+                        {0, 0, 8, 0, 4, 0, 0, 0, 0},
+                        {6, 0, 0, 1, 0, 0, 9, 7, 0},
+                        {0, 0, 6, 0, 0, 8, 2, 5, 0},
+                        {0, 0, 0, 5, 0, 0, 0, 0, 3},
+                        {2, 0, 0, 0, 0, 0, 0, 0, 1},
+                        {0, 7, 0, 0, 0, 1, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0, 3, 0},
+                        {9, 0, 0, 7, 0, 0, 5, 6, 0}
+                };
+        solve.init(testBoard);
+        assertTrue(Arrays.deepEquals(solve.getBoard(), testBoard), "Wrong result from init");
     }
 
 }

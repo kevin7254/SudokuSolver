@@ -2,10 +2,11 @@ package GUI;
 
 import Solver.FileReader;
 import Solver.Solver;
+import Solver.SudokuSolver;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,33 +18,16 @@ public class SudokuViewer {
     private final int HEIGHT = 500;
     private final int GRID_SIZE = 9;
     private final JTextField[][] fields;
-    private final Solver solver;
+    private final SudokuSolver solver;
+    private final List<Integer> legalNumbers;
 
     public SudokuViewer(Solver solver) {
         this.solver = solver;
         this.fields = guiBoard();
         SwingUtilities.invokeLater(this::createWindow);
+        legalNumbers = new ArrayList<>();
+        for (int i = 1; i <= 9; i++) legalNumbers.add(i);
     }
-
-    /**
-     * Creates a format for the available inputs on Sudoku board
-     *
-     * @param s inserted string for formatting
-     * @return MaskFormatter to be used for formatting with JFormattedTextField
-     */
-    private MaskFormatter format(String s) {
-        MaskFormatter f = null;
-        try {
-            f = new MaskFormatter(s);
-        } catch (java.text.ParseException e) {
-            System.err.println("bad formatter: " + e.getMessage());
-        }
-        if (f != null) {
-            f.setInvalidCharacters("0");
-        }
-        return f;
-    }
-
 
     /**
      * Creates a new JFrame window
@@ -82,7 +66,7 @@ public class SudokuViewer {
 
         for (int i = 0; i < GRID_SIZE; i++) {
             for (int j = 0; j < GRID_SIZE; j++) {
-                fields[i][j] = new JFormattedTextField(format("#"));
+                fields[i][j] = new JTextField();
                 fields[i][j].setHorizontalAlignment(JTextField.CENTER);
                 fields[i][j].setFont(font1);
             }
@@ -130,7 +114,7 @@ public class SudokuViewer {
         });
 
         solveBtn.addActionListener(event -> {
-            Solver temp = new Solver();
+            SudokuSolver temp = new Solver();
             boolean finished = true;
             int[][] tempBoard = new int[GRID_SIZE][GRID_SIZE];
             for (int i = 0; i < GRID_SIZE; i++) {
@@ -141,12 +125,16 @@ public class SudokuViewer {
                             finished = false;
                         } else {
                             try {
-                                tempBoard[i][j] = Integer.parseInt(Objects.requireNonNull(fields[i][j]).getText());
+                                if (legalNumbers.contains(Integer.parseInt(fields[i][j].getText()))) {
+                                    tempBoard[i][j] = Integer.parseInt(Objects.requireNonNull(fields[i][j]).getText());
+                                } else {
+                                    finished = false;
+                                    JOptionPane.showMessageDialog(null, "Please enter a valid number");
+                                }
                             } catch (NumberFormatException e) {
                                 finished = false;
                                 JOptionPane.showMessageDialog(null, "Please enter a valid number");
                             }
-
                         }
                     }
                 }
@@ -155,7 +143,14 @@ public class SudokuViewer {
                 temp.init(tempBoard);
                 if (!temp.solve(0, 0)) {
                     JOptionPane.showMessageDialog(null, "Wrong Solution");
-                } else JOptionPane.showMessageDialog(null, "Right solution!!!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Right solution!!!");
+                    for (int i = 0; i < GRID_SIZE; i++) {
+                        for (int j = 0; j < GRID_SIZE; j++) {
+                            fields[i][j].setEditable(false);
+                        }
+                    }
+                }
 
             }
 
@@ -167,6 +162,7 @@ public class SudokuViewer {
             for (int i = 0; i < GRID_SIZE; i++) {
                 for (int j = 0; j < GRID_SIZE; j++) {
                     fields[i][j].setText(String.valueOf(arr[i][j]));
+                    fields[i][j].setEditable(false);
                 }
             }
         });
