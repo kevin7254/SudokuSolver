@@ -6,13 +6,16 @@ public class Solver implements SudokuSolver {
     /**
      * Creates a Solver
      */
-    public Solver() { 
+    public Solver() {
         field = new int[9][9];
     }
 
     /**
      * Check if it is legal to place value at row, col.
      *
+     * @param row   row
+     * @param col   column
+     * @param value value
      * @return true if value can be placed at row, col, false otherwise
      */
 
@@ -42,6 +45,8 @@ public class Solver implements SudokuSolver {
     /**
      * Check if the position at row, col has a start value
      *
+     * @param row row
+     * @param col column
      * @return true if the position has no start value, false otherwise
      */
 
@@ -51,6 +56,8 @@ public class Solver implements SudokuSolver {
 
     /**
      * Initializes the board with values in the matrix start.
+     *
+     * @param start the board to initialize
      */
 
     public void init(int[][] start) {
@@ -65,13 +72,15 @@ public class Solver implements SudokuSolver {
      */
 
     public int[][] getBoard() {
-        return field;
+        return field.clone();
     }
 
 
     /**
      * Method to solve the sudoku.
      *
+     * @param row row
+     * @param col column
      * @return true if solution was found, false otherwise
      */
 
@@ -79,33 +88,39 @@ public class Solver implements SudokuSolver {
         if (checkIfEmpty(row, col)) {// om platsen är nollställd
             for (int i = 1; i <= 9; i++) {
                 if (checkIfLegal(row, col, i)) {// om i går att sätta in i field[row][col]
-                 if(col == 8 && row == 8){
-                    add(row, col, i);
-                    return true;
-                } else if(col != 8){
+                    if (col == 8 && row == 8) {
                         add(row, col, i);
-                        if (solve(row, col+1)) return true;
-                        }else if (col == 8) {
-                            add(row, col, i);
-                            if (solve(row +1, 0)) return true;
-                        }
-                    }}
-                    remove(row, col);
-                    return false;
+                        return true;
+                    } else if (col != 8) {
+                        add(row, col, i);
+                        if (solve(row, col + 1)) return true;
+                    } else {
+                        add(row, col, i);
+                        if (solve(row + 1, 0)) return true;
+                    }
+                }
+            }
+            remove(row, col);
+            return false;
 
-    }if (!(checkIfEmpty(row, col))) {
-        if (checkIfLegal(row, col, field[row][col])) {
-            if (col == 8 && row == 8) return true;
-            if (col == 8 ) if (solve(row+1, 0)) return true; 
-            if (col != 8) if (solve(row, col+1)) return true;
+        }
+        if (!(checkIfEmpty(row, col))) {
+            if (checkIfLegal(row, col, field[row][col])) {
+                if (col == 8 && row == 8) return true;
+                if (col == 8) if (solve(row + 1, 0)) return true;
+                if (col != 8) return solve(row, col + 1);
+            }
+            return false;
         }
         return false;
-    }
-return false;
     }
 
     /**
      * Adds value value at position row, col.
+     *
+     * @param row   row
+     * @param col   column
+     * @param value value
      */
 
     public void add(int row, int col, int value) {
@@ -126,6 +141,9 @@ return false;
 
     /**
      * Removes the value at row, col.
+     *
+     * @param row row
+     * @param col column
      */
 
     public void remove(int row, int col) {
